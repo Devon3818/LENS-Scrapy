@@ -21,9 +21,9 @@ class SeleniumMiddleware():
 
   def process_request(self, request, spider):
 
-    province = request.meta['province'] - 1
-    city = request.meta['city'] - 1
-    district = request.meta['district'] - 1
+    province = int(request.meta['province']) - 1
+    city = int(request.meta['city']) - 1
+    district = int(request.meta['district']) - 1
     dtime = int(request.meta['dtime'])
 
     try:

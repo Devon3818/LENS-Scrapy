@@ -38,25 +38,23 @@ class MainSpider(scrapy.Spider):
     _cname = _sele_city[1]
     _dname = _sele_city[2]
 
-    if self.isAgain == 1:
-      self.isAgain = 2
-      _sele_menu = response.css('.select-menu-wrapper')
+    _sele_menu = response.css('.select-menu-wrapper')
 
-      if len(_sele_menu) > 0:
-        for _index in range(len(_sele_menu)):
+    if len(_sele_menu) > 0:
+      for _index in range(len(_sele_menu)):
 
-          if _index == 0:
-            if self._province_now == 1:
-              self._province = len(_sele_menu[ _index ].css('.select-menu-item'))
-              print '_province:' + str(self._province)
+        if _index == 0:
+          if self._province_now == 1:
+            self._province = len(_sele_menu[ _index ].css('.select-menu-item'))
+            print '_province:' + str(self._province)
 
-          if _index == 1:
-            self._city = len(_sele_menu[ _index ].css('.select-menu-item'))
-            print '_city:' + str(self._city)
+        if _index == 1:
+          self._city = len(_sele_menu[ _index ].css('.select-menu-item'))
+          print '_city:' + str(self._city)
 
-          if _index == 2:
-            self._district = len(_sele_menu[ _index ].css('.select-menu-item'))
-            print '_district:' + str(self._district)
+        if _index == 2:
+          self._district = len(_sele_menu[ _index ].css('.select-menu-item'))
+          print '_district:' + str(self._district)
 
     if len(_list) > 0:
       for _index_al in range(len(_list)):
@@ -99,6 +97,7 @@ class MainSpider(scrapy.Spider):
         self._city_now = int(self._city_now) + 1
         req.meta['city'] = self._city_now
         req.meta['district'] = self._district_now
+        self._type = 3
       else:
         self._city_now = 1
         self._type = 1
@@ -113,7 +112,6 @@ class MainSpider(scrapy.Spider):
         self._city_now = 1
         self._district_now = 1
 
-        self.isAgain = 1
         self._type = 3
       else:
         print 'over!!'
